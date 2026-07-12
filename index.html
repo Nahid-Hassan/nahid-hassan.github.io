@@ -518,75 +518,76 @@
             </div>
         </header>
 
-        <!-- Scientific Research Objectives & Interests -->
-        <div class="research-objective-card">
-            <h3 class="objective-title">
-                <i class="fa-solid fa-microscope"></i> Research Objectives & Interests
-            </h3>
-            <p class="objective-text">
-                Passionate about bridging corporate software engineering practices with cutting-edge academic research. Focus areas include optimizing Convolutional Neural Network architectures for real-time computer vision, designing machine learning frameworks for bioinformatics classifications, and exploring high-yield automated data pipeline structures.
-            </p>
-            <div class="interests-tags">
-                <span class="interest-tag"><i class="fa-solid fa-atom"></i> Machine Learning</span>
-                <span class="interest-tag"><i class="fa-solid fa-eye"></i> Computer Vision</span>
-                <span class="interest-tag"><i class="fa-solid fa-dna"></i> Bioinformatics</span>
-                <span class="interest-tag"><i class="fa-solid fa-network-wired"></i> Embedded Networks</span>
-                <span class="interest-tag"><i class="fa-solid fa-brain"></i> Neural Networks</span>
+        <!-- Lock Gate Card -->
+        <div id="portals-lock-gate" class="card" style="max-width: 480px; margin: 0 auto 3.5rem; text-align: center; border: 1px solid var(--border); padding: 2.5rem 2rem; border-radius: 24px;">
+            <div style="font-size: 2.2rem; margin-bottom: 1rem; color: var(--accent);"><i class="fa-solid fa-lock"></i></div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--primary);">Protected Content Area</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 500;">Please enter access code to view research interests & study portals.</p>
+            <div style="display: flex; gap: 0.5rem; justify-content: center; max-width: 320px; margin: 0 auto;">
+                <input type="password" id="portal-password-input" placeholder="Access Code" style="flex: 1; padding: 0.65rem 1.25rem; border: 1px solid var(--border); border-radius: 50px; font-weight: 700; outline: none; font-size: 0.9rem; background-color: var(--bg-page); color: var(--primary);" />
+                <button id="unlock-portals-btn" style="background-color: var(--primary); color: white; border: none; padding: 0.65rem 1.35rem; border-radius: 50px; font-weight: 800; cursor: pointer; font-size: 0.9rem; transition: var(--transition);">Unlock</button>
             </div>
+            <p id="portal-lock-error" style="color: #ef4444; font-size: 0.8rem; font-weight: 700; margin-top: 0.75rem; display: none;"><i class="fa-solid fa-triangle-exclamation"></i> Invalid access code.</p>
         </div>
 
-        <!-- Interactive Web Portals (Private/Shared Utilities) -->
-        <div class="section">
-            <h2 class="section-title"><i class="fa-solid fa-compass"></i> Learning & Study Portals</h2>
-            
-            <!-- Lock Gate Card -->
-            <div id="portals-lock-gate" class="card" style="max-width: 480px; margin: 0 auto 2rem; text-align: center; border: 1px solid var(--border); padding: 2.5rem 2rem; border-radius: 24px;">
-                <div style="font-size: 2.2rem; margin-bottom: 1rem; color: var(--accent);"><i class="fa-solid fa-lock"></i></div>
-                <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--primary);">Protected Study Portals</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 500;">Please enter access code to view learning portals.</p>
-                <div style="display: flex; gap: 0.5rem; justify-content: center; max-width: 320px; margin: 0 auto;">
-                    <input type="password" id="portal-password-input" placeholder="Access Code" style="flex: 1; padding: 0.65rem 1.25rem; border: 1px solid var(--border); border-radius: 50px; font-weight: 700; outline: none; font-size: 0.9rem; background-color: var(--bg-page); color: var(--primary);" />
-                    <button id="unlock-portals-btn" style="background-color: var(--primary); color: white; border: none; padding: 0.65rem 1.35rem; border-radius: 50px; font-weight: 800; cursor: pointer; font-size: 0.9rem; transition: var(--transition);">Unlock</button>
+        <!-- Protected Content Wrapper (Hidden by default, holds research objectives and portals) -->
+        <div id="study-portals-container" style="display: none; margin-bottom: 3.5rem;">
+            <!-- Scientific Research Objectives & Interests -->
+            <div class="research-objective-card" style="margin-bottom: 3.5rem;">
+                <h3 class="objective-title">
+                    <i class="fa-solid fa-microscope"></i> Research Objectives & Interests
+                </h3>
+                <p class="objective-text">
+                    Passionate about bridging corporate software engineering practices with cutting-edge academic research. Focus areas include optimizing Convolutional Neural Network architectures for real-time computer vision, designing machine learning frameworks for bioinformatics classifications, and exploring high-yield automated data pipeline structures.
+                </p>
+                <div class="interests-tags">
+                    <span class="interest-tag"><i class="fa-solid fa-atom"></i> Machine Learning</span>
+                    <span class="interest-tag"><i class="fa-solid fa-eye"></i> Computer Vision</span>
+                    <span class="interest-tag"><i class="fa-solid fa-dna"></i> Bioinformatics</span>
+                    <span class="interest-tag"><i class="fa-solid fa-network-wired"></i> Embedded Networks</span>
+                    <span class="interest-tag"><i class="fa-solid fa-brain"></i> Neural Networks</span>
                 </div>
-                <p id="portal-lock-error" style="color: #ef4444; font-size: 0.8rem; font-weight: 700; margin-top: 0.75rem; display: none;"><i class="fa-solid fa-triangle-exclamation"></i> Invalid access code.</p>
             </div>
 
-            <!-- Portals Content (Hidden by default) -->
-            <div id="study-portals-container" class="portals-container" style="display: none;">
-                <!-- Portal 1: JPL -->
-                <div class="portal-card">
-                    <div>
-                        <div class="portal-header">
-                            <div class="portal-icon">
-                                <i class="fa-solid fa-language"></i>
+            <!-- Interactive Web Portals (Private/Shared Utilities) -->
+            <div class="section">
+                <h2 class="section-title"><i class="fa-solid fa-compass"></i> Learning & Study Portals</h2>
+                <div class="portals-container">
+                    <!-- Portal 1: JPL -->
+                    <div class="portal-card">
+                        <div>
+                            <div class="portal-header">
+                                <div class="portal-icon">
+                                    <i class="fa-solid fa-language"></i>
+                                </div>
+                                <h3>Japanese Vocabulary & Grammar Portal</h3>
                             </div>
-                            <h3>Japanese Vocabulary & Grammar Portal</h3>
+                            <p>
+                                An interactive JLPT study application equipped with complete N5 & N4 database loaders, virtual kana keyboards, pronunciation engines, and custom quizzes.
+                            </p>
                         </div>
-                        <p>
-                            An interactive JLPT study application equipped with complete N5 & N4 database loaders, virtual kana keyboards, pronunciation engines, and custom quizzes.
-                        </p>
+                        <a href="./jpl/" class="portal-btn">
+                            Open Portal <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
                     </div>
-                    <a href="./jpl/" class="portal-btn">
-                        Open Portal <i class="fa-solid fa-arrow-right-long"></i>
-                    </a>
-                </div>
 
-                <!-- Portal 2: IELTS -->
-                <div class="portal-card">
-                    <div>
-                        <div class="portal-header">
-                            <div class="portal-icon">
-                                <i class="fa-solid fa-graduation-cap"></i>
+                    <!-- Portal 2: IELTS -->
+                    <div class="portal-card">
+                        <div>
+                            <div class="portal-header">
+                                <div class="portal-icon">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <h3>IELTS Preparation & Practice Portal</h3>
                             </div>
-                            <h3>IELTS Preparation & Practice Portal</h3>
+                            <p>
+                                A comprehensive preparation space featuring simulated interactive listening/reading tests, speaking voice recorders, writing editors, and academic vocab pools.
+                            </p>
                         </div>
-                        <p>
-                            A comprehensive preparation space featuring simulated interactive listening/reading tests, speaking voice recorders, writing editors, and academic vocab pools.
-                        </p>
+                        <a href="./ielts/" class="portal-btn">
+                            Open Portal <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
                     </div>
-                    <a href="./ielts/" class="portal-btn">
-                        Open Portal <i class="fa-solid fa-arrow-right-long"></i>
-                    </a>
                 </div>
             </div>
         </div>
