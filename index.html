@@ -802,18 +802,36 @@
                        hash === "0e60716a0043ea97cb9c460245513346514872846bd1cfcbcb5f2d6cea6f0487";
             }
 
-            // Check lock state from localStorage
-            if (localStorage.getItem("portals_unlocked") === "true") {
-                if (lockGate) lockGate.style.display = "none";
-                if (container) container.style.display = "block"; // Make sure it's block to contain the sections
+            // Check lock state from localStorage with 1-hour expiration
+            const sessionStr = localStorage.getItem("portals_session");
+            if (sessionStr) {
+                try {
+                    const session = JSON.parse(sessionStr);
+                    const now = Date.now();
+                    if (now < session.expiresAt && (session.hash === "7ad566a57623bfc52fb337ee92331007cbfc050fc79874cb0bb87d1645201d12" || session.hash === "0e60716a0043ea97cb9c460245513346514872846bd1cfcbcb5f2d6cea6f0487")) {
+                        if (lockGate) lockGate.style.display = "none";
+                        if (container) container.style.display = "block";
+                    } else {
+                        localStorage.removeItem("portals_session");
+                    }
+                } catch (e) {
+                    localStorage.removeItem("portals_session");
+                }
             }
 
             if (unlockBtn) {
                 unlockBtn.addEventListener("click", async function() {
                     const entered = passwordInput.value;
-                    const isValid = await checkPassword(entered);
+                    const clean = entered.trim().toLowerCase();
+                    const hash = await sha256(clean);
+                    const isValid = hash === "7ad566a57623bfc52fb337ee92331007cbfc050fc79874cb0bb87d1645201d12" || 
+                                    hash === "0e60716a0043ea97cb9c460245513346514872846bd1cfcbcb5f2d6cea6f0487";
                     if (isValid) {
-                        localStorage.setItem("portals_unlocked", "true");
+                        const session = {
+                            hash: hash,
+                            expiresAt: Date.now() + 3600000 // 1 hour expiration
+                        };
+                        localStorage.setItem("portals_session", JSON.stringify(session));
                         if (lockGate) lockGate.style.display = "none";
                         if (container) container.style.display = "block";
                         if (errorMsg) errorMsg.style.display = "none";
