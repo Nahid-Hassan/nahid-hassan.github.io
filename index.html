@@ -19,17 +19,17 @@
     
     <style>
         :root {
-            --primary: #14375F;
-            --primary-light: #1E4E85;
-            --accent: #8C96AA;
-            --accent-light: #D5DAE5;
-            --bg-page: #FAF9F6;
+            --primary: #0F172A; /* Slate 900 - Premium slate dark */
+            --primary-light: #1E293B; /* Slate 800 */
+            --accent: #3B82F6; /* Premium Indigo/Blue */
+            --accent-light: #EFF6FF; /* Soft Blue accent */
+            --bg-page: #F8FAFC; /* Slate 50 - clean background */
             --bg-card: #FFFFFF;
-            --text-main: #28282D;
-            --text-muted: #5C6270;
-            --text-subtle: #7E8594;
-            --border: #E8EBF2;
-            --shadow: 0 10px 30px -10px rgba(20, 55, 95, 0.08);
+            --text-main: #1E293B;
+            --text-muted: #475569;
+            --text-subtle: #64748B;
+            --border: #E2E8F0;
+            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -43,7 +43,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-page);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
@@ -68,8 +68,8 @@
         }
 
         .profile-avatar {
-            width: 90px;
-            height: 90px;
+            width: 110px;
+            height: 110px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             border-radius: 50%;
             margin: 0 auto 1.5rem;
@@ -77,10 +77,9 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 2.2rem;
-            font-weight: 800;
-            box-shadow: 0 15px 35px -10px rgba(20, 55, 95, 0.25);
-            font-family: 'Outfit', sans-serif;
+            box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.3);
+            border: 4px solid var(--bg-card);
+            overflow: hidden;
         }
 
         header h1 {
@@ -88,19 +87,22 @@
             font-weight: 800;
             letter-spacing: -0.5px;
             margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 60%, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .subtitle {
             font-size: 1.15rem;
             color: var(--text-muted);
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 1.5rem;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1.25rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
 
@@ -108,36 +110,36 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.6rem 1.2rem;
+            padding: 0.6rem 1.25rem;
             border-radius: 50px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            color: var(--primary);
+            color: var(--text-muted);
             font-weight: 600;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: var(--transition);
             box-shadow: var(--shadow);
         }
 
         .social-btn:hover {
             transform: translateY(-2px);
-            border-color: var(--primary);
-            background: var(--primary);
-            color: white;
+            border-color: var(--accent);
+            background: var(--accent-light);
+            color: var(--accent);
         }
 
         /* Section Layout */
         .section {
-            margin-bottom: 3.5rem;
+            margin-bottom: 4rem;
         }
 
         .section-title {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
@@ -149,73 +151,115 @@
             content: '';
             flex-grow: 1;
             height: 1px;
-            background-color: var(--accent-light);
+            background-color: var(--border);
         }
 
-        /* Objective Box */
-        .objective-card {
+        .section-title i {
+            color: var(--accent);
+        }
+
+        /* Objective/Research Card */
+        .research-objective-card {
             background-color: var(--bg-card);
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: 24px;
+            padding: 2.25rem;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
+            margin-bottom: 2rem;
         }
 
-        .objective-card::before {
+        .research-objective-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 4px;
             height: 100%;
-            background: var(--primary);
+            background: var(--accent);
+        }
+
+        .objective-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .objective-title i {
+            color: var(--accent);
         }
 
         .objective-text {
-            font-size: 1.05rem;
-            color: var(--text-main);
+            font-size: 1rem;
+            color: var(--text-muted);
             font-weight: 500;
-            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .interests-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .interest-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            background-color: var(--accent-light);
+            padding: 0.4rem 0.9rem;
+            border-radius: 50px;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
         /* Cards Layout */
         .card {
             background-color: var(--bg-card);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 2.25rem;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
             transition: var(--transition);
         }
 
         .card:hover {
             transform: translateY(-3px);
-            border-color: rgba(20, 55, 95, 0.15);
-            box-shadow: 0 15px 35px -10px rgba(20, 55, 95, 0.12);
+            border-color: rgba(59, 130, 246, 0.2);
+            box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.08);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
             gap: 1rem;
         }
 
         .card-title-group h3 {
             font-size: 1.25rem;
             font-weight: 700;
-            line-height: 1.3;
+            line-height: 1.35;
         }
 
         .card-subtitle {
             font-size: 0.95rem;
-            color: var(--text-muted);
+            color: var(--text-subtle);
             font-weight: 600;
-            margin-top: 0.25rem;
+            margin-top: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
         .card-date {
@@ -223,7 +267,7 @@
             font-weight: 700;
             color: var(--text-subtle);
             background: var(--bg-page);
-            padding: 0.35rem 0.85rem;
+            padding: 0.4rem 0.9rem;
             border-radius: 50px;
             white-space: nowrap;
             border: 1px solid var(--border);
@@ -232,7 +276,7 @@
         /* Experience bullet items */
         .card-list {
             list-style: none;
-            margin-top: 1rem;
+            margin-top: 1.25rem;
         }
 
         .card-list li {
@@ -246,18 +290,18 @@
 
         .card-list li::before {
             content: "\f00c";
-            font-family: "Font Awesome 5 Free";
+            font-family: "Font Awesome 6 Free";
             font-weight: 900;
             position: absolute;
             left: 0;
-            top: 2px;
-            color: var(--primary);
-            font-size: 0.8rem;
+            top: 4px;
+            color: var(--accent);
+            font-size: 0.75rem;
         }
 
         /* Project GitHub link buttons */
         .project-links {
-            margin-top: 1.25rem;
+            margin-top: 1.5rem;
             display: flex;
             gap: 0.75rem;
         }
@@ -268,26 +312,26 @@
             gap: 0.4rem;
             font-size: 0.85rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--text-muted);
             text-decoration: none;
             border: 1px solid var(--border);
-            padding: 0.45rem 0.9rem;
+            padding: 0.45rem 1rem;
             border-radius: 8px;
             transition: var(--transition);
             background: var(--bg-page);
         }
 
         .project-btn:hover {
-            background-color: var(--primary);
+            background-color: var(--accent);
             color: white;
-            border-color: var(--primary);
+            border-color: var(--accent);
         }
 
         /* Skills Grid Layout */
         .skills-grid {
             display: grid;
             grid-template-cols: 1fr;
-            gap: 1.25rem;
+            gap: 1.5rem;
         }
 
         @media (min-width: 640px) {
@@ -298,8 +342,8 @@
 
         .skill-group {
             background-color: var(--bg-card);
-            border-radius: 16px;
-            padding: 1.5rem;
+            border-radius: 18px;
+            padding: 1.75rem;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
         }
@@ -307,10 +351,17 @@
         .skill-group h4 {
             font-size: 1.05rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
             color: var(--primary);
-            border-left: 3px solid var(--primary);
+            border-left: 3px solid var(--accent);
             padding-left: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-group h4 i {
+            color: var(--accent);
         }
 
         .skill-tags {
@@ -322,90 +373,107 @@
         .skill-tag {
             font-size: 0.8rem;
             font-weight: 700;
-            color: var(--primary);
-            background-color: rgba(20, 55, 95, 0.05);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            border: 1px solid rgba(20, 55, 95, 0.05);
+            color: var(--text-muted);
+            background-color: var(--bg-page);
+            padding: 0.4rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
         }
 
-        /* App Link Card styling */
-        .app-card {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
+        /* Interactive Portal Launch buttons */
+        .portals-container {
+            display: grid;
+            grid-template-cols: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 640px) {
+            .portals-container {
+                grid-template-cols: repeat(2, 1fr);
+            }
+        }
+
+        .portal-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 2.25rem;
-            box-shadow: 0 15px 35px -10px rgba(20, 55, 95, 0.35);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            align-items: flex-start;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 3.5rem;
-            border: none;
         }
 
-        .app-card::after {
-            content: '';
-            position: absolute;
-            right: -50px;
-            bottom: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 50%;
-            pointer-events: none;
+        .portal-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 35px -10px rgba(59, 130, 246, 0.12);
         }
 
-        .app-card h3 {
-            color: white;
-            font-size: 1.6rem;
+        .portal-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .portal-icon {
+            height: 44px;
+            width: 44px;
+            border-radius: 12px;
+            background-color: var(--accent-light);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .portal-card h3 {
+            font-size: 1.2rem;
             font-weight: 800;
-            margin-bottom: 0.5rem;
         }
 
-        .app-card p {
-            color: var(--accent-light);
-            font-size: 0.95rem;
+        .portal-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
             font-weight: 500;
             margin-bottom: 1.5rem;
-            max-width: 600px;
         }
 
-        .app-card-btn {
+        .portal-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background-color: white;
-            color: var(--primary);
+            gap: 0.4rem;
+            font-size: 0.85rem;
             font-weight: 800;
-            padding: 0.75rem 1.5rem;
+            color: white;
+            background-color: var(--primary);
+            padding: 0.6rem 1.2rem;
             border-radius: 50px;
             text-decoration: none;
-            font-size: 0.9rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: fit-content;
             transition: var(--transition);
         }
 
-        .app-card-btn:hover {
-            transform: translateY(-2px);
-            background-color: var(--bg-page);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        .portal-btn:hover {
+            background-color: var(--accent);
         }
 
         /* Footer styling */
         footer {
             text-align: center;
-            padding-top: 2rem;
-            border-t: 1px solid var(--accent-light);
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--border);
             font-size: 0.85rem;
             color: var(--text-subtle);
             font-weight: 600;
         }
 
         footer a {
-            color: var(--primary);
+            color: var(--accent);
             text-decoration: none;
             font-weight: 700;
         }
@@ -431,7 +499,7 @@
     <div class="container">
         
         <header>
-            <div class="profile-avatar" style="overflow: hidden;">
+            <div class="profile-avatar">
                 <img src="profile.jpg" alt="Md. Nahid Hassan" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h1>Md. Nahid Hassan</h1>
@@ -450,7 +518,64 @@
             </div>
         </header>
 
+        <!-- Scientific Research Objectives & Interests -->
+        <div class="research-objective-card">
+            <h3 class="objective-title">
+                <i class="fa-solid fa-microscope"></i> Research Objectives & Interests
+            </h3>
+            <p class="objective-text">
+                Passionate about bridging corporate software engineering practices with cutting-edge academic research. Focus areas include optimizing Convolutional Neural Network architectures for real-time computer vision, designing machine learning frameworks for bioinformatics classifications, and exploring high-yield automated data pipeline structures.
+            </p>
+            <div class="interests-tags">
+                <span class="interest-tag"><i class="fa-solid fa-atom"></i> Machine Learning</span>
+                <span class="interest-tag"><i class="fa-solid fa-eye"></i> Computer Vision</span>
+                <span class="interest-tag"><i class="fa-solid fa-dna"></i> Bioinformatics</span>
+                <span class="interest-tag"><i class="fa-solid fa-network-wired"></i> Embedded Networks</span>
+                <span class="interest-tag"><i class="fa-solid fa-brain"></i> Neural Networks</span>
+            </div>
+        </div>
 
+        <!-- Interactive Web Portals (Private/Shared Utilities) -->
+        <div class="section">
+            <h2 class="section-title"><i class="fa-solid fa-compass"></i> Learning & Study Portals</h2>
+            <div class="portals-container">
+                <!-- Portal 1: JPL -->
+                <div class="portal-card">
+                    <div>
+                        <div class="portal-header">
+                            <div class="portal-icon">
+                                <i class="fa-solid fa-language"></i>
+                            </div>
+                            <h3>Japanese Vocabulary & Grammar Portal</h3>
+                        </div>
+                        <p>
+                            An interactive JLPT study application equipped with complete N5 & N4 database loaders, virtual kana keyboards, pronunciation engines, and custom quizzes.
+                        </p>
+                    </div>
+                    <a href="./jpl/" class="portal-btn">
+                        Open Portal <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </div>
+
+                <!-- Portal 2: IELTS -->
+                <div class="portal-card">
+                    <div>
+                        <div class="portal-header">
+                            <div class="portal-icon">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <h3>IELTS Preparation & Practice Portal</h3>
+                        </div>
+                        <p>
+                            A comprehensive preparation space featuring simulated interactive listening/reading tests, speaking voice recorders, writing editors, and academic vocab pools.
+                        </p>
+                    </div>
+                    <a href="./ielts/" class="portal-btn">
+                        Open Portal <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
 
         <!-- Professional Experience -->
         <div class="section">
@@ -460,9 +585,9 @@
                 <div class="card-header">
                     <div class="card-title-group">
                         <h3>Software Engineer</h3>
-                        <div class="card-subtitle">Therap (BD) Ltd.</div>
+                        <div class="card-subtitle"><i class="fa-solid fa-building"></i> Therap (BD) Ltd.</div>
                     </div>
-                    <span class="card-date">Dec 2023 -- Present</span>
+                    <span class="card-date">Dec 2023 – Present</span>
                 </div>
                 <p style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem;"><i class="fa-solid fa-location-dot"></i> Dhaka, Bangladesh</p>
                 <p style="font-size: 0.95rem; font-weight: 500; color: var(--text-muted);">
@@ -476,9 +601,9 @@
             </div>
         </div>
 
-        <!-- Projects -->
+        <!-- Projects & Research -->
         <div class="section">
-            <h2 class="section-title"><i class="fa-solid fa-code"></i> Projects & Research</h2>
+            <h2 class="section-title"><i class="fa-solid fa-flask"></i> Projects & Research</h2>
             
             <!-- Project 1 -->
             <div class="card">
@@ -486,7 +611,7 @@
                     <div class="card-title-group">
                         <h3>DeepSecurity: CNN-based Real-Time Security System</h3>
                     </div>
-                    <span class="card-date">Oct 2019 -- Apr 2022</span>
+                    <span class="card-date">Oct 2019 – Apr 2022</span>
                 </div>
                 <ul class="card-list">
                     <li>Engineered an end-to-end intelligent surveillance ecosystem utilizing Convolutional Neural Networks (CNNs) for real-time intrusion detection in video streams.</li>
@@ -506,7 +631,7 @@
                     <div class="card-title-group">
                         <h3>Predicting Protein Phosphorylation Sites via Machine Learning</h3>
                     </div>
-                    <span class="card-date">Jan 2022 -- Apr 2022</span>
+                    <span class="card-date">Jan 2022 – Apr 2022</span>
                 </div>
                 <ul class="card-list">
                     <li>Developed a machine learning framework for predicting protein phosphorylation sites using biological sequence data, applying advanced feature extraction and preprocessing techniques.</li>
@@ -525,7 +650,7 @@
                     <div class="card-title-group">
                         <h3>Neural Network-driven Financial Fraud Detection</h3>
                     </div>
-                    <span class="card-date">Dec 2019 -- Jan 2020</span>
+                    <span class="card-date">Dec 2019 – Jan 2020</span>
                 </div>
                 <ul class="card-list">
                     <li>Designed a fraud detection system utilizing Artificial Neural Networks (ANNs) to identify anomalous patterns in structured financial datasets.</li>
@@ -544,7 +669,7 @@
                     <div class="card-title-group">
                         <h3>Network Development with MCU Based Control System (Undergraduate Project)</h3>
                     </div>
-                    <span class="card-date">Aug 2022 -- Jun 2023</span>
+                    <span class="card-date">Aug 2022 – Jun 2023</span>
                 </div>
                 <ul class="card-list">
                     <li>Studied ARM architecture and developed embedded systems using STM32 microcontrollers.</li>
@@ -567,9 +692,9 @@
                 <div class="card-header">
                     <div class="card-title-group">
                         <h3>University of Rajshahi, Bangladesh</h3>
-                        <div class="card-subtitle">B.Sc. in Computer Science and Engineering</div>
+                        <div class="card-subtitle"><i class="fa-solid fa-university"></i> B.Sc. in Computer Science and Engineering</div>
                     </div>
-                    <span class="card-date">Jan 2017 -- Jun 2023</span>
+                    <span class="card-date">Jan 2017 – Jun 2023</span>
                 </div>
                 <p style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.75rem;">
                     <strong>Relevant Coursework:</strong> Artificial Intelligence, Digital Signal Processing, Data Structures, Algorithms, Database Management Systems, Web Engineering, Computer Architecture and Organization, Discrete Mathematics.
@@ -583,7 +708,7 @@
             
             <div class="skills-grid">
                 <div class="skill-group">
-                    <h4>Machine Learning & CV</h4>
+                    <h4><i class="fa-solid fa-chart-line"></i> Machine Learning & CV</h4>
                     <div class="skill-tags">
                         <span class="skill-tag">Keras</span>
                         <span class="skill-tag">scikit-learn</span>
@@ -595,7 +720,7 @@
                 </div>
 
                 <div class="skill-group">
-                    <h4>Languages & Tools</h4>
+                    <h4><i class="fa-solid fa-terminal"></i> Languages & Tools</h4>
                     <div class="skill-tags">
                         <span class="skill-tag">Python</span>
                         <span class="skill-tag">Java</span>
@@ -609,7 +734,7 @@
                 </div>
 
                 <div class="skill-group">
-                    <h4>Backend Infrastructure</h4>
+                    <h4><i class="fa-solid fa-server"></i> Backend Infrastructure</h4>
                     <div class="skill-tags">
                         <span class="skill-tag">Spring MVC</span>
                         <span class="skill-tag">Hibernate</span>
@@ -620,7 +745,7 @@
                 </div>
 
                 <div class="skill-group">
-                    <h4>Embedded Systems</h4>
+                    <h4><i class="fa-solid fa-microchip"></i> Embedded Systems</h4>
                     <div class="skill-tags">
                         <span class="skill-tag">STM32 Microcontrollers</span>
                         <span class="skill-tag">ARM Architecture</span>
