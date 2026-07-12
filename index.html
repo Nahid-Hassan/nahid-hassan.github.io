@@ -787,25 +787,35 @@
             const unlockBtn = document.getElementById("unlock-portals-btn");
             const errorMsg = document.getElementById("portal-lock-error");
 
-            function checkPassword(pass) {
+            async function sha256(message) {
+                const msgBuffer = new TextEncoder().encode(message);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                return hashHex;
+            }
+
+            async function checkPassword(pass) {
                 const clean = pass.trim().toLowerCase();
-                // Accepts nahidjpl or nahidielts to unlock the portals section
-                return clean === "nahidjpl" || clean === "nahidielts";
+                const hash = await sha256(clean);
+                return hash === "7ad566a57623bfc52fb337ee92331007cbfc050fc79874cb0bb87d1645201d12" || 
+                       hash === "0e60716a0043ea97cb9c460245513346514872846bd1cfcbcb5f2d6cea6f0487";
             }
 
             // Check lock state from localStorage
             if (localStorage.getItem("portals_unlocked") === "true") {
                 if (lockGate) lockGate.style.display = "none";
-                if (container) container.style.display = "grid";
+                if (container) container.style.display = "block"; // Make sure it's block to contain the sections
             }
 
             if (unlockBtn) {
-                unlockBtn.addEventListener("click", function() {
+                unlockBtn.addEventListener("click", async function() {
                     const entered = passwordInput.value;
-                    if (checkPassword(entered)) {
+                    const isValid = await checkPassword(entered);
+                    if (isValid) {
                         localStorage.setItem("portals_unlocked", "true");
                         if (lockGate) lockGate.style.display = "none";
-                        if (container) container.style.display = "grid";
+                        if (container) container.style.display = "block";
                         if (errorMsg) errorMsg.style.display = "none";
                     } else {
                         if (errorMsg) errorMsg.style.display = "block";
