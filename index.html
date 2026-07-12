@@ -33,6 +33,20 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        body.dark {
+            --primary: #F8FAFC;
+            --primary-light: #E2E8F0;
+            --accent: #60A5FA;
+            --accent-light: #1E293B;
+            --bg-page: #090D16;
+            --bg-card: #0F172A;
+            --text-main: #F8FAFC;
+            --text-muted: #CBD5E1;
+            --text-subtle: #94A3B8;
+            --border: #1E293B;
+            --shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -515,6 +529,9 @@
                 <a href="https://www.linkedin.com/in/nahid-cseru/" target="_blank" rel="noopener" class="social-btn">
                     <i class="fa-brands fa-linkedin-in"></i> LinkedIn
                 </a>
+                <button id="theme-toggle" class="social-btn" style="cursor: pointer; font-family: inherit; font-size: 0.85rem; font-weight: 600; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); outline: none;">
+                    <i id="theme-toggle-icon" class="fa-solid fa-moon"></i> <span id="theme-toggle-text">Dark Mode</span>
+                </button>
             </div>
         </header>
 
@@ -847,6 +864,43 @@
                     if (e.key === "Enter") {
                         unlockBtn.click();
                     }
+                });
+            }
+
+            // Theme toggle logic
+            const themeToggle = document.getElementById("theme-toggle");
+            const themeToggleIcon = document.getElementById("theme-toggle-icon");
+            const themeToggleText = document.getElementById("theme-toggle-text");
+
+            function setTheme(isDark) {
+                if (isDark) {
+                    document.body.classList.add("dark");
+                    if (themeToggleIcon) themeToggleIcon.className = "fa-solid fa-sun";
+                    if (themeToggleText) themeToggleText.textContent = "Light Mode";
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    document.body.classList.remove("dark");
+                    if (themeToggleIcon) themeToggleIcon.className = "fa-solid fa-moon";
+                    if (themeToggleText) themeToggleText.textContent = "Dark Mode";
+                    localStorage.setItem("theme", "light");
+                }
+            }
+
+            // Init theme
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme === "dark") {
+                setTheme(true);
+            } else if (savedTheme === "light") {
+                setTheme(false);
+            } else {
+                const systemPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                setTheme(systemPref);
+            }
+
+            if (themeToggle) {
+                themeToggle.addEventListener("click", () => {
+                    const isDarkNow = document.body.classList.contains("dark");
+                    setTheme(!isDarkNow);
                 });
             }
         });
