@@ -1,530 +1,661 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Simple Stock Manager</title>
-  <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#6ee7b7; --danger:#ff6b6b;
-      --glass: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    body{ margin:0; min-height:100vh; background:linear-gradient(180deg,#071129 0%, #071224 60%); color:#e6eef6; }
-    header{ padding:18px 28px; display:flex; gap:16px; align-items:center; border-bottom:1px solid rgba(255,255,255,0.03); background:rgba(3,7,12,0.2); }
-    header h1{ margin:0; font-size:18px; letter-spacing:0.2px; font-weight:600; }
-    .container{ max-width:1100px; margin:24px auto; padding:20px; }
-    .grid{ display:grid; grid-template-columns: 360px 1fr; gap:18px; }
-    .card{ background:var(--card); border-radius:12px; padding:14px; box-shadow: 0 6px 18px rgba(2,6,12,0.6); border:1px solid rgba(255,255,255,0.02); }
-    label{ display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
-    input[type=text], input[type=number], select{ width:100%; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit; outline:none; font-size:14px; }
-    button{ background:linear-gradient(90deg,#0ea5a1,#34d399); border:none; color:#022; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:600; }
-    button.ghost{ background:transparent; color:var(--accent); border:1px solid rgba(110,231,183,0.14); }
-    button.warn{ background:var(--danger); color:white; }
-    .small{ font-size:13px; padding:6px 10px; border-radius:8px; }
-    .muted{ color:var(--muted); font-size:13px; }
-    .product-list{ max-height:560px; overflow:auto; margin-top:12px; display:flex; flex-direction:column; gap:10px; }
-    .product-item{ padding:10px; border-radius:8px; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); display:flex; gap:10px; align-items:flex-start; justify-content:space-between; }
-    .variant{ margin-top:8px; padding:8px; border-radius:8px; background:rgba(255,255,255,0.015); display:flex; align-items:center; gap:8px; }
-    .row{ display:flex; gap:10px; align-items:center; }
-    .flex{ display:flex; gap:10px; align-items:center; }
-    table{ width:100%; border-collapse:collapse; font-size:13px; color:inherit; }
-    th, td{ padding:8px 6px; text-align:left; border-bottom:1px dashed rgba(255,255,255,0.03); }
-    .tabs{ display:flex; gap:8px; margin-bottom:12px; }
-    .tab{ padding:8px 10px; border-radius:8px; background:transparent; cursor:pointer; color:var(--muted); }
-    .tab.active{ background:rgba(255,255,255,0.03); color:var(--accent); border:1px solid rgba(110,231,183,0.08); }
-    footer{ margin-top:18px; color:var(--muted); font-size:13px; text-align:center; }
-    .actions{ display:flex; gap:8px; flex-wrap:wrap; }
-    .controls{ display:flex; gap:8px; margin-top:12px; }
-    .search{ display:flex; gap:8px; align-items:center; }
-    pre { white-space:pre-wrap; word-break:break-word; background:rgba(255,255,255,0.02); padding:10px; border-radius:8px; font-size:13px; }
-    .badge{ padding:4px 8px; border-radius:999px; font-size:12px; background:rgba(255,255,255,0.03); color:var(--muted); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md. Nahid Hassan | Software Engineer & Researcher</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portfolio of Md. Nahid Hassan, Software Engineer at Therap (BD) Ltd. B.Sc. in CSE from Rajshahi University. Specializing in Software Engineering, Machine Learning, and Computer Vision.">
+    <meta name="keywords" content="Md. Nahid Hassan, Software Engineer, Therap, Computer Science, Rajshahi University, Machine Learning, Computer Vision, Portfolio">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #14375F;
+            --primary-light: #1E4E85;
+            --accent: #8C96AA;
+            --accent-light: #D5DAE5;
+            --bg-page: #FAF9F6;
+            --bg-card: #FFFFFF;
+            --text-main: #28282D;
+            --text-muted: #5C6270;
+            --text-subtle: #7E8594;
+            --border: #E8EBF2;
+            --shadow: 0 10px 30px -10px rgba(20, 55, 95, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        /* Profile Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 800;
+            box-shadow: 0 15px 35px -10px rgba(20, 55, 95, 0.25);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Section Layout */
+        .section {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--accent-light);
+        }
+
+        /* Objective Box */
+        .objective-card {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .objective-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .objective-text {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            font-weight: 500;
+            line-height: 1.7;
+        }
+
+        /* Cards Layout */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(20, 55, 95, 0.15);
+            box-shadow: 0 15px 35px -10px rgba(20, 55, 95, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .card-title-group h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .card-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .card-date {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-subtle);
+            background: var(--bg-page);
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            white-space: nowrap;
+            border: 1px solid var(--border);
+        }
+
+        /* Experience bullet items */
+        .card-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .card-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .card-list li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        /* Project GitHub link buttons */
+        .project-links {
+            margin-top: 1.25rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .project-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            background: var(--bg-page);
+        }
+
+        .project-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Skills Grid Layout */
+        .skills-grid {
+            display: grid;
+            grid-template-cols: 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (min-width: 640px) {
+            .skills-grid {
+                grid-template-cols: repeat(2, 1fr);
+            }
+        }
+
+        .skill-group {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .skill-group h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            padding-left: 0.6rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            background-color: rgba(20, 55, 95, 0.05);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid rgba(20, 55, 95, 0.05);
+        }
+
+        /* App Link Card styling */
+        .app-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 2.25rem;
+            box-shadow: 0 15px 35px -10px rgba(20, 55, 95, 0.35);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 3.5rem;
+            border: none;
+        }
+
+        .app-card::after {
+            content: '';
+            position: absolute;
+            right: -50px;
+            bottom: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .app-card h3 {
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-card p {
+            color: var(--accent-light);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+
+        .app-card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: white;
+            color: var(--primary);
+            font-weight: 800;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .app-card-btn:hover {
+            transform: translateY(-2px);
+            background-color: var(--bg-page);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding-top: 2rem;
+            border-t: 1px solid var(--accent-light);
+            font-size: 0.85rem;
+            color: var(--text-subtle);
+            font-weight: 600;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* Responsive changes */
+        @media (max-width: 640px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .card-date {
+                align-self: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Stock Manager — Simple (localStorage)</h1>
-    <div style="flex:1"></div>
-    <div class="muted">Products: <span id="productCount">0</span></div>
-  </header>
 
-  <div class="container">
-    <div class="grid">
-      <!-- LEFT: Product + Variant management -->
-      <div class="card">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <div style="font-weight:700">Add Product</div>
-            <div class="muted">Create a product, then add types/variants</div>
-          </div>
-          <div class="muted">Local only</div>
-        </div>
-
-        <div style="margin-top:12px">
-          <label>Product Name</label>
-          <input id="productName" type="text" placeholder="e.g. Shampoo">
-          <div style="display:flex; gap:8px; margin-top:8px;">
-            <button id="addProductBtn" class="small">Add Product</button>
-            <button id="exportBtn" class="small ghost">Export JSON</button>
-            <button id="resetBtn" class="small ghost" title="Clear all data">Reset</button>
-          </div>
-        </div>
-
-        <hr style="border:none; margin:12px 0; border-top:1px solid rgba(255,255,255,0.02)">
-
-        <div>
-          <div style="font-weight:700">Add Variant (Type)</div>
-          <div class="muted">Select product, add a type & starting stock</div>
-          <label style="margin-top:10px">Select Product</label>
-          <select id="productSelect"></select>
-          <label style="margin-top:8px">Variant / Type name</label>
-          <input id="variantName" type="text" placeholder="e.g. 200ml - Blue">
-          <label style="margin-top:8px">Initial Stock (qty)</label>
-          <input id="variantStock" type="number" value="0" min="0">
-          <label style="margin-top:8px">Expected daily out (auto-subtract at EOD)</label>
-          <input id="variantDailyOut" type="number" value="0" min="0">
-          <div style="display:flex; gap:8px; margin-top:8px;">
-            <button id="addVariantBtn" class="small">Add Variant</button>
-            <button id="importBtn" class="small ghost">Import JSON</button>
-          </div>
-          <div class="muted" style="margin-top:8px">Expected daily out is your business rule — the amount automatically deducted when you press End of Day</div>
-        </div>
-
-        <div style="margin-top:12px" class="muted">Quick actions</div>
-        <div class="controls">
-          <button id="endOfDayBtn" class="small warn">End of Day Process</button>
-          <button id="clearTransactionsBtn" class="small ghost">Clear Transactions</button>
-        </div>
-      </div>
-
-      <!-- RIGHT: Dashboard, list, transactions -->
-      <div class="card">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <div style="font-weight:700">Dashboard</div>
-            <div class="muted">Products, variants, current stock & history</div>
-          </div>
-
-          <div class="flex">
-            <div class="search">
-              <input id="searchInput" type="text" placeholder="Search product or variant" style="padding:8px; border-radius:8px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:inherit;">
+    <div class="container">
+        
+        <!-- Header Info -->
+        <header>
+            <div class="profile-avatar">NH</div>
+            <h1>Md. Nahid Hassan</h1>
+            <div class="subtitle">Software Engineer @ Therap (BD) Limited</div>
+            
+            <div class="social-links">
+                <a href="mailto:nahidmdh18@gmail.com" class="social-btn">
+                    <i class="fa-regular fa-envelope"></i> Email
+                </a>
+                <a href="https://github.com/Nahid-Hassan" target="_blank" rel="noopener" class="social-btn">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/nahid-cseru/" target="_blank" rel="noopener" class="social-btn">
+                    <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+                </a>
             </div>
-            <div class="badge" id="lastRunBadge">Last EOD: -</div>
-          </div>
+        </header>
+
+        <!-- Dynamic Japanese Learning App Link Card -->
+        <div class="app-card">
+            <div>
+                <h3>Japanese Vocabulary & Grammar Portal</h3>
+                <p>An interactive, modern JLPT N5 and N4 training simulator built with traditional design styling, inline stroke guides, drawing board canvases, speech engines, and vocabulary sets.</p>
+            </div>
+            <a href="./jpl/" class="app-card-btn">
+                Launch Portal <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </div>
 
-        <div style="margin-top:14px" class="tabs">
-          <div class="tab active" data-tab="products">Products</div>
-          <div class="tab" data-tab="transactions">Transactions</div>
-          <div class="tab" data-tab="report">Report</div>
+        <!-- Research Objective -->
+        <div class="section">
+            <h2 class="section-title"><i class="fa-solid fa-microscope"></i> Research Objective</h2>
+            <div class="objective-card">
+                <p class="objective-text">
+                    My research objective is to develop sensor-based human activity recognition systems for preventive healthcare by applying machine learning to behavioral data, enabling intelligent care and healthcare decision-making in real-world environments.
+                </p>
+            </div>
         </div>
 
-        <div id="tabProducts">
-          <div class="product-list" id="productList"></div>
+        <!-- Professional Experience -->
+        <div class="section">
+            <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Work Experience</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <h3>Software Engineer</h3>
+                        <div class="card-subtitle">Therap (BD) Ltd.</div>
+                    </div>
+                    <span class="card-date">Dec 2023 -- Present</span>
+                </div>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem;"><i class="fa-solid fa-location-dot"></i> Dhaka, Bangladesh</p>
+                <p style="font-size: 0.95rem; font-weight: 500; color: var(--text-muted);">
+                    Develop backend systems for enterprise healthcare platforms with a focus on scalable architecture, data processing automation, and system reliability.
+                </p>
+                <ul class="card-list">
+                    <li>Develop and maintain enterprise-grade backend systems using Java, Spring MVC, Hibernate, Oracle, and React.</li>
+                    <li>Design and implement data migration pipelines, auditing systems, batch applications, and workflow automation services.</li>
+                    <li>Contribute to healthcare interoperability and domain modules including FHIR R4 integration, medication history management, pharmacy workflows, pre-authorization systems, external data export, and file transfer services.</li>
+                </ul>
+            </div>
         </div>
 
-        <div id="tabTransactions" style="display:none">
-          <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
-            <div class="muted">Filter:</div>
-            <select id="transFilterType"><option value="all">All</option><option value="in">Stock In</option><option value="out">Stock Out</option><option value="auto">Auto Out (EOD)</option></select>
-            <select id="transFilterProduct"><option value="all">All Products</option></select>
-            <input id="transStart" type="date"><input id="transEnd" type="date">
-            <button id="applyFilter" class="small ghost">Apply</button>
-            <button id="exportTrans" class="small">Export CSV</button>
-          </div>
-          <div style="max-height:520px; overflow:auto;">
-            <table id="transTable">
-              <thead><tr><th>Date</th><th>Type</th><th>Product</th><th>Variant</th><th>Qty</th><th>Note</th></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
+        <!-- Projects -->
+        <div class="section">
+            <h2 class="section-title"><i class="fa-solid fa-code"></i> Projects & Research</h2>
+            
+            <!-- Project 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <h3>DeepSecurity: CNN-based Real-Time Security System</h3>
+                    </div>
+                    <span class="card-date">Oct 2019 -- Apr 2022</span>
+                </div>
+                <ul class="card-list">
+                    <li>Engineered an end-to-end intelligent surveillance ecosystem utilizing Convolutional Neural Networks (CNNs) for real-time intrusion detection in video streams.</li>
+                    <li>Built a full pipeline from data preprocessing to model inference and web-based monitoring deployment.</li>
+                    <li>Optimized computer vision workflows for real-time, production-ready security applications.</li>
+                </ul>
+                <div class="project-links">
+                    <a href="https://github.com/Nahid-Hassan/web-based-home-security" target="_blank" rel="noopener" class="project-btn">
+                        <i class="fa-brands fa-github"></i> Repository
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <h3>Predicting Protein Phosphorylation Sites via Machine Learning</h3>
+                    </div>
+                    <span class="card-date">Jan 2022 -- Apr 2022</span>
+                </div>
+                <ul class="card-list">
+                    <li>Developed a machine learning framework for predicting protein phosphorylation sites using biological sequence data, applying advanced feature extraction and preprocessing techniques.</li>
+                    <li>Designed and evaluated supervised learning models for bioinformatics classification tasks, optimizing performance for phosphorylation site prediction accuracy.</li>
+                </ul>
+                <div class="project-links">
+                    <a href="https://github.com/Nahid-Hassan/protein-ptm-phosphorylation" target="_blank" rel="noopener" class="project-btn">
+                        <i class="fa-brands fa-github"></i> Repository
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <h3>Neural Network-driven Financial Fraud Detection</h3>
+                    </div>
+                    <span class="card-date">Dec 2019 -- Jan 2020</span>
+                </div>
+                <ul class="card-list">
+                    <li>Designed a fraud detection system utilizing Artificial Neural Networks (ANNs) to identify anomalous patterns in structured financial datasets.</li>
+                    <li>Focused on imbalanced data handling and feature engineering to maximize sensitivity and mitigate financial risk.</li>
+                </ul>
+                <div class="project-links">
+                    <a href="https://github.com/Nahid-Hassan/ANN-based-feature-selection-for-bank-telemarketing" target="_blank" rel="noopener" class="project-btn">
+                        <i class="fa-brands fa-github"></i> Repository
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <h3>Network Development with MCU Based Control System (Undergraduate Project)</h3>
+                    </div>
+                    <span class="card-date">Aug 2022 -- Jun 2023</span>
+                </div>
+                <ul class="card-list">
+                    <li>Studied ARM architecture and developed embedded systems using STM32 microcontrollers.</li>
+                    <li>Implemented UART-based inter-device communication for reliable data exchange between multiple STM32 nodes.</li>
+                    <li>Designed and evaluated I2C-based communication mechanisms for scalable embedded network and remote control applications.</li>
+                </ul>
+                <div class="project-links">
+                    <a href="https://github.com/Nahid-Hassan/stm32-system-design" target="_blank" rel="noopener" class="project-btn">
+                        <i class="fa-brands fa-github"></i> Repository
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <div id="tabReport" style="display:none">
-          <div style="display:flex; gap:8px; margin-bottom:12px; align-items:center;">
-            <div class="muted">Select Product</div>
-            <select id="reportProduct"><option value="all">All</option></select>
-            <button id="refreshReport" class="small ghost">Refresh</button>
-            <div style="flex:1"></div>
-            <div class="muted">Total Products: <span id="totalProducts">0</span></div>
-          </div>
-
-          <div id="reportContent">
-            <table id="reportTable">
-              <thead><tr><th>Product</th><th>Variant</th><th>Opening</th><th>In</th><th>Out</th><th>Current</th><th>DailyOut</th></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
+        <!-- Education -->
+        <div class="section">
+            <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <h3>University of Rajshahi, Bangladesh</h3>
+                        <div class="card-subtitle">B.Sc. in Computer Science and Engineering</div>
+                    </div>
+                    <span class="card-date">Jan 2017 -- Jun 2023</span>
+                </div>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.75rem;">
+                    <strong>Relevant Coursework:</strong> Artificial Intelligence, Digital Signal Processing, Data Structures, Algorithms, Database Management Systems, Web Engineering, Computer Architecture and Organization, Discrete Mathematics.
+                </p>
+            </div>
         </div>
 
+        <!-- Technical Skills -->
+        <div class="section">
+            <h2 class="section-title"><i class="fa-solid fa-screwdriver-wrench"></i> Technical Skills</h2>
+            
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h4>Machine Learning & CV</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Keras</span>
+                        <span class="skill-tag">scikit-learn</span>
+                        <span class="skill-tag">Model Training</span>
+                        <span class="skill-tag">Experimental Evaluation</span>
+                        <span class="skill-tag">CNN Image Processing</span>
+                        <span class="skill-tag">Video-based Detection</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h4>Languages & Tools</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Matplotlib</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h4>Backend Infrastructure</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Spring MVC</span>
+                        <span class="skill-tag">Hibernate</span>
+                        <span class="skill-tag">REST APIs</span>
+                        <span class="skill-tag">Microservices</span>
+                        <span class="skill-tag">Oracle Database</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h4>Embedded Systems</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">STM32 Microcontrollers</span>
+                        <span class="skill-tag">ARM Architecture</span>
+                        <span class="skill-tag">UART Protocols</span>
+                        <span class="skill-tag">I2C Protocols</span>
+                        <span class="skill-tag">Embedded C++</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
         <footer>
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:16px;">
-            <div class="muted">Built for quick inventory tracking • Data stored locally</div>
-            <div class="muted">Tip: Export JSON to back up</div>
-          </div>
+            <p>&copy; 2026 Md. Nahid Hassan. Hosted on <a href="https://github.com/Nahid-Hassan" target="_blank" rel="noopener">GitHub Pages</a>.</p>
         </footer>
-      </div>
+
     </div>
-  </div>
 
-  <script>
-  /**********************************************************************
-   * Simple Stock Manager
-   * Data is stored in localStorage under key "stock_manager_v1"
-   *
-   * Model:
-   *  state = {
-   *    products: [{id, name, variants:[{id,name,stock,expectedDailyOut}]}],
-   *    transactions: [{id, date, type: "in"|"out"|"auto", productId, variantId, qty, note}],
-   *    lastEOD: timestamp|null
-   *  }
-   **********************************************************************/
-  (function(){
-    // Utilities
-    const uid = (prefix='id') => prefix + '_' + Math.random().toString(36).slice(2,9);
-    const todayDateStr = (d=new Date()) => d.toISOString().slice(0,10);
-    const load = () => JSON.parse(localStorage.getItem('stock_manager_v1') || 'null') || {products:[], transactions:[], lastEOD:null};
-    const save = (s) => localStorage.setItem('stock_manager_v1', JSON.stringify(s));
-    let state = load();
-
-    // DOM refs
-    const productNameInput = document.getElementById('productName');
-    const addProductBtn = document.getElementById('addProductBtn');
-    const productSelect = document.getElementById('productSelect');
-    const variantNameInput = document.getElementById('variantName');
-    const variantStockInput = document.getElementById('variantStock');
-    const variantDailyOutInput = document.getElementById('variantDailyOut');
-    const addVariantBtn = document.getElementById('addVariantBtn');
-    const productListEl = document.getElementById('productList');
-    const productCountEl = document.getElementById('productCount');
-    const endOfDayBtn = document.getElementById('endOfDayBtn');
-    const lastRunBadge = document.getElementById('lastRunBadge');
-    const resetBtn = document.getElementById('resetBtn');
-    const exportBtn = document.getElementById('exportBtn');
-    const importBtn = document.getElementById('importBtn');
-    const searchInput = document.getElementById('searchInput');
-
-    const tabEls = document.querySelectorAll('.tab');
-    const tabProducts = document.getElementById('tabProducts');
-    const tabTransactions = document.getElementById('tabTransactions');
-    const tabReport = document.getElementById('tabReport');
-
-    const transTableBody = document.querySelector('#transTable tbody');
-    const transFilterType = document.getElementById('transFilterType');
-    const transFilterProduct = document.getElementById('transFilterProduct');
-    const transStart = document.getElementById('transStart');
-    const transEnd = document.getElementById('transEnd');
-    const applyFilterBtn = document.getElementById('applyFilter');
-    const exportTransBtn = document.getElementById('exportTrans');
-
-    const reportProductSel = document.getElementById('reportProduct');
-    const reportTableBody = document.querySelector('#reportTable tbody');
-
-    // Initialize UI
-    function refreshUI(){
-      // counts
-      productCountEl.textContent = state.products.length;
-      document.getElementById('totalProducts').textContent = state.products.length;
-
-      // populate selects
-      const options = [{value:'',text:'-- select product --'}].concat(state.products.map(p=>({value:p.id, text:p.name})));
-      productSelect.innerHTML = options.map(o=>`<option value="${o.value}">${o.text}</option>`).join('');
-      transFilterProduct.innerHTML = '<option value="all">All Products</option>' + state.products.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
-      reportProductSel.innerHTML = '<option value="all">All</option>' + state.products.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
-      // last EOD
-      lastRunBadge.textContent = state.lastEOD ? 'Last EOD: ' + new Date(state.lastEOD).toLocaleString() : 'Last EOD: -';
-
-      // product list
-      const q = (searchInput.value||'').toLowerCase().trim();
-      productListEl.innerHTML = state.products
-        .filter(p => !q || p.name.toLowerCase().includes(q) || p.variants.some(v=>v.name.toLowerCase().includes(q)))
-        .map(p => {
-          const variantsHTML = p.variants.map(v => {
-            return `<div class="variant">
-              <div style="flex:1">
-                <div style="font-weight:600">${v.name}</div>
-                <div class="muted" style="font-size:12px">Stock: <strong>${v.stock}</strong> • DailyOut: ${v.expectedDailyOut}</div>
-              </div>
-              <div style="display:flex; gap:8px; align-items:center;">
-                <button class="small" data-action="in" data-product="${p.id}" data-variant="${v.id}">Add Stock In</button>
-                <button class="small ghost" data-action="out" data-product="${p.id}" data-variant="${v.id}">Manual Stock Out</button>
-                <button class="small ghost" data-action="edit-variant" data-product="${p.id}" data-variant="${v.id}">Edit</button>
-              </div>
-            </div>`;
-          }).join('');
-          return `<div class="product-item">
-            <div style="flex:1">
-              <div style="font-weight:700">${p.name}</div>
-              ${variantsHTML || '<div class="muted">No variants yet</div>'}
-            </div>
-            <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
-              <div class="muted">ID: ${p.id}</div>
-              <div><button class="small ghost" data-action="delete-product" data-product="${p.id}">Delete</button></div>
-            </div>
-          </div>`;
-        }).join('') || '<div class="muted">No products yet</div>';
-
-      // transaction table
-      renderTransactions();
-
-      // report
-      renderReport();
-    }
-
-    // Save helper
-    function pushTransaction({type, productId, variantId, qty, note}){
-      const t = { id: uid('tx'), date: new Date().toISOString(), type, productId, variantId, qty, note: note||''};
-      state.transactions.unshift(t); // newest first
-      save(state);
-    }
-
-    // Add product
-    addProductBtn.addEventListener('click', ()=> {
-      const name = (productNameInput.value||'').trim();
-      if(!name){ alert('Provide product name'); return; }
-      const product = { id: uid('p'), name, variants:[] };
-      state.products.push(product);
-      save(state);
-      productNameInput.value = '';
-      refreshUI();
-    });
-
-    // Add variant
-    addVariantBtn.addEventListener('click', ()=> {
-      const pid = productSelect.value;
-      if(!pid){ alert('Select a product'); return; }
-      const pname = document.querySelector(`#productSelect option[value="${pid}"]`).textContent;
-      const vname = (variantNameInput.value||'').trim();
-      if(!vname){ alert('Variant name required'); return; }
-      const stock = Math.max(0, parseInt(variantStockInput.value||0));
-      const daily = Math.max(0, parseInt(variantDailyOutInput.value||0));
-      const product = state.products.find(p=>p.id===pid);
-      if(!product) { alert('Product not found'); return; }
-      const variant = { id: uid('v'), name: vname, stock, expectedDailyOut: daily };
-      product.variants.push(variant);
-      if(stock>0) pushTransaction({type:'in', productId: pid, variantId: variant.id, qty: stock, note:'Initial stock'});
-      save(state);
-      variantNameInput.value=''; variantStockInput.value='0'; variantDailyOutInput.value='0';
-      refreshUI();
-    });
-
-    // Product list click actions (delegation)
-    productListEl.addEventListener('click', (ev)=>{
-      const btn = ev.target.closest('button');
-      if(!btn) return;
-      const action = btn.getAttribute('data-action');
-      const pid = btn.getAttribute('data-product');
-      const vid = btn.getAttribute('data-variant');
-      if(action==='in') {
-        const qty = prompt('Enter stock in quantity (positive integer)', '1');
-        const q = parseInt(qty||'0');
-        if(!q || q<=0) return alert('Invalid qty');
-        const product = state.products.find(p=>p.id===pid);
-        const variant = product.variants.find(v=>v.id===vid);
-        variant.stock += q;
-        pushTransaction({type:'in', productId: pid, variantId: vid, qty: q, note:'Manual in'});
-        save(state); refreshUI();
-      } else if(action==='out'){
-        const qty = prompt('Enter stock out quantity (positive integer)', '1');
-        const q = parseInt(qty||'0');
-        if(!q || q<=0) return alert('Invalid qty');
-        const product = state.products.find(p=>p.id===pid);
-        const variant = product.variants.find(v=>v.id===vid);
-        const taken = Math.min(q, variant.stock);
-        variant.stock -= taken;
-        pushTransaction({type:'out', productId: pid, variantId: vid, qty: taken, note:'Manual out'});
-        save(state); refreshUI();
-      } else if(action==='delete-product'){
-        if(!confirm('Delete product and all its variants?')) return;
-        state.products = state.products.filter(p=>p.id!==pid);
-        // Optionally remove related transactions
-        state.transactions = state.transactions.filter(t=>t.productId !== pid);
-        save(state); refreshUI();
-      } else if(action==='edit-variant'){
-        const product = state.products.find(p=>p.id===pid);
-        const variant = product.variants.find(v=>v.id===vid);
-        const newName = prompt('Variant name', variant.name);
-        if(newName===null) return;
-        const newDaily = prompt('Expected daily out (numeric)', variant.expectedDailyOut);
-        if(newDaily===null) return;
-        variant.name = newName;
-        variant.expectedDailyOut = Math.max(0, parseInt(newDaily||0));
-        save(state); refreshUI();
-      }
-    });
-
-    // End of day process: for each variant subtract expectedDailyOut (not below 0).
-    endOfDayBtn.addEventListener('click', ()=> {
-      if(!confirm('Run End of Day process? This will apply expected daily out for all variants and create "auto" transactions.')) return;
-      let totalReduced=0;
-      state.products.forEach(p=>{
-        p.variants.forEach(v=>{
-          if(v.expectedDailyOut && v.expectedDailyOut>0){
-            const reduce = Math.min(v.expectedDailyOut, v.stock);
-            if(reduce>0){
-              v.stock -= reduce;
-              pushTransaction({type:'auto', productId: p.id, variantId: v.id, qty: reduce, note:'EOD auto out'});
-              totalReduced += reduce;
-            }
-          }
-        });
-      });
-      state.lastEOD = new Date().toISOString();
-      save(state);
-      alert('End of Day complete. Total auto-out qty: ' + totalReduced);
-      refreshUI();
-    });
-
-    // Reset
-    resetBtn.addEventListener('click', ()=> {
-      if(!confirm('Reset all data in localStorage?')) return;
-      state = {products:[], transactions:[], lastEOD:null};
-      save(state); refreshUI();
-    });
-
-    // Export JSON
-    exportBtn.addEventListener('click', ()=> {
-      const dataStr = JSON.stringify(state, null, 2);
-      const blob = new Blob([dataStr], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'stock-manager-export.json'; document.body.appendChild(a); a.click();
-      a.remove(); URL.revokeObjectURL(url);
-    });
-
-    // Import JSON
-    importBtn.addEventListener('click', ()=> {
-      const inp = document.createElement('input');
-      inp.type = 'file'; inp.accept = '.json,application/json';
-      inp.onchange = e => {
-        const file = e.target.files[0];
-        if(!file) return;
-        const reader = new FileReader();
-        reader.onload = ev => {
-          try {
-            const parsed = JSON.parse(ev.target.result);
-            if(confirm('Replace current data with imported data?')) {
-              state = parsed;
-              save(state); refreshUI();
-            }
-          } catch(err){
-            alert('Invalid JSON file');
-          }
-        };
-        reader.readAsText(file);
-      };
-      inp.click();
-    });
-
-    // Search input
-    searchInput.addEventListener('input', ()=> refreshUI());
-
-    // Tabs
-    tabEls.forEach(t => t.addEventListener('click', ()=>{
-      tabEls.forEach(x=>x.classList.remove('active'));
-      t.classList.add('active');
-      const tab = t.getAttribute('data-tab');
-      tabProducts.style.display = tab==='products' ? 'block' : 'none';
-      tabTransactions.style.display = tab==='transactions' ? 'block' : 'none';
-      tabReport.style.display = tab==='report' ? 'block' : 'none';
-      // refresh certain pieces
-      renderTransactions(); renderReport();
-    }));
-
-    // Transactions rendering & filtering
-    function renderTransactions(){
-      const typeFilter = transFilterType.value;
-      const prodFilter = transFilterProduct.value;
-      const start = transStart.value ? new Date(transStart.value) : null;
-      const end = transEnd.value ? new Date(transEnd.value) : null;
-      let rows = state.transactions.slice(); // newest first
-      rows = rows.filter(t => (typeFilter==='all' || t.type===typeFilter));
-      rows = rows.filter(t => (prodFilter==='all' || t.productId===prodFilter));
-      if(start) rows = rows.filter(t => new Date(t.date) >= start);
-      if(end) { const ed = new Date(end); ed.setDate(ed.getDate()+1); rows = rows.filter(t => new Date(t.date) < ed); }
-      transTableBody.innerHTML = rows.map(t=>{
-        const p = state.products.find(p=>p.id===t.productId);
-        const v = p ? p.variants.find(x=>x.id===t.variantId) : null;
-        return `<tr>
-          <td>${new Date(t.date).toLocaleString()}</td>
-          <td>${t.type}</td>
-          <td>${p ? p.name : '(deleted)'}</td>
-          <td>${v ? v.name : '(deleted)'}</td>
-          <td>${t.qty}</td>
-          <td>${t.note || ''}</td>
-        </tr>`;
-      }).join('') || '<tr><td colspan="6" class="muted">No transactions</td></tr>';
-    }
-    applyFilterBtn.addEventListener('click', ()=> renderTransactions());
-    exportTransBtn.addEventListener('click', ()=> {
-      // Export visible transactions as CSV
-      const rows = Array.from(transTableBody.querySelectorAll('tr')).map(tr=>{
-        return Array.from(tr.children).map(td => td.textContent.replace(/\n/g,' ').trim());
-      });
-      if(rows.length===0) return alert('No rows to export');
-      const csv = rows.map(r => r.map(c => `"${c.replace(/"/g,'""')}"`).join(',')).join('\n');
-      const blob = new Blob([csv], {type:'text/csv'}); const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href=url; a.download = 'transactions.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-    });
-
-    // Report
-    function renderReport(){
-      const sel = reportProductSel.value;
-      const rows = [];
-      state.products.forEach(p=>{
-        if(sel !== 'all' && p.id !== sel) return;
-        p.variants.forEach(v=>{
-          // compute sums from transactions
-          const ins = state.transactions.filter(t=>t.productId===p.id && t.variantId===v.id && t.type==='in').reduce((s,t)=>s+t.qty,0);
-          const outs = state.transactions.filter(t=>t.productId===p.id && t.variantId===v.id && (t.type==='out' || t.type==='auto')).reduce((s,t)=>s+t.qty,0);
-          const opening = (v.opening || 0); // we don't store separate opening per month here, but initial stock belonged in variant.stock initially
-          rows.push({product:p.name, variant:v.name, opening:opening, in:ins, out:outs, current:v.stock, daily:v.expectedDailyOut});
-        });
-      });
-      reportTableBody.innerHTML = rows.map(r=>`<tr>
-        <td>${r.product}</td>
-        <td>${r.variant}</td>
-        <td>${r.opening}</td>
-        <td>${r.in}</td>
-        <td>${r.out}</td>
-        <td>${r.current}</td>
-        <td>${r.daily}</td>
-      </tr>`).join('') || '<tr><td colspan="7" class="muted">No data</td></tr>';
-    }
-
-    // Initialize date inputs with reasonable defaults
-    (() => {
-      const d = new Date();
-      const start = new Date(d.getFullYear(), d.getMonth(), 1);
-      transStart.value = start.toISOString().slice(0,10);
-      transEnd.value = todayDateStr();
-    })();
-
-    // Load saved state on boot
-    refreshUI();
-
-    // Extra: export/import via remote small UI
-    // Also set up keyboard shortcuts
-    window.addEventListener('keydown', (e)=>{
-      if(e.ctrlKey && e.key==='s'){ e.preventDefault(); alert('Local saved'); save(state); }
-    });
-
-    // Provide a function to safely update variant stocks externally if needed
-    window.__stockManager = {
-      state,
-      save,
-      refreshUI,
-      addProduct: (name)=>{ state.products.push({id:uid('p'), name, variants:[]}); save(state); refreshUI(); },
-      addVariantToProduct: (productId, name, stock=0, daily=0) => {
-        const p = state.products.find(x=>x.id===productId); if(!p) return null;
-        const v = {id: uid('v'), name, stock, expectedDailyOut:daily}; p.variants.push(v);
-        if(stock>0) pushTransaction({type:'in', productId, variantId:v.id, qty:stock, note:'Initial import'});
-        save(state); refreshUI(); return v;
-      }
-    };
-
-  })();
-  </script>
 </body>
 </html>
-
